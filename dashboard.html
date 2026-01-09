@@ -70,7 +70,7 @@
       padding: 12px;
       border-radius: 10px;
       border: 1px solid #d1d5db;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       font-size: 15px;
     }
 
@@ -93,7 +93,6 @@
     .status {
       display: none;
       text-align: center;
-      padding: 30px;
     }
 
     .spinner {
@@ -110,6 +109,22 @@
       to { transform: rotate(360deg); }
     }
 
+    .steps {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .step {
+      padding: 8px 0;
+      font-size: 15px;
+      color: #6b7280;
+    }
+
+    .step.active {
+      color: #111827;
+      font-weight: 600;
+    }
+
     .success {
       font-size: 28px;
       color: #16a34a;
@@ -118,6 +133,21 @@
 
     .hidden {
       display: none;
+    }
+
+    .hashtags span {
+      display: inline-block;
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin: 4px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .hashtags span:hover {
+      background: #e0e7ff;
     }
   </style>
 </head>
@@ -163,18 +193,66 @@
   <div id="generating" class="card status">
     <div class="spinner"></div>
     <p>Generating video…</p>
+
+    <div class="steps">
+      <div class="step" id="s1">• Analyzing comments</div>
+      <div class="step" id="s2">• Filtering inappropriate language</div>
+      <div class="step" id="s3">• Selecting key moments</div>
+      <div class="step" id="s4">• Generating narration</div>
+      <div class="step" id="s5">• Rendering subtitles</div>
+      <div class="step" id="s6">• Video editing and montage</div>
+    </div>
   </div>
 
   <!-- GENERATED -->
   <div id="generated" class="card status">
     <div class="success">✓</div>
     <p>Video successfully created</p>
+
+    <div style="margin-top: 24px;">
+      <div style="font-weight: 600; margin-bottom: 12px;">Preview</div>
+
+      <div style="
+        position: relative;
+        padding-top: 177%;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      ">
+        <iframe
+          src="https://www.tiktok.com/embed/7593089944558587192"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+          "
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <p style="font-size: 13px; color: #6b7280; margin-top: 8px;">
+        Sample preview video for demonstration purposes
+      </p>
+    </div>
   </div>
 
-  <!-- STEP 3 -->
+  <!-- PUBLISH -->
   <div id="publishSection" class="card hidden">
-    <label>Hashtags</label>
-    <textarea rows="3" placeholder="#story #shortvideo #narration"></textarea>
+    <label>Recommended hashtags</label>
+    <div class="hashtags">
+      <span onclick="addTag('#storytime')">#storytime</span>
+      <span onclick="addTag('#redditstories')">#redditstories</span>
+      <span onclick="addTag('#shortvideo')">#shortvideo</span>
+      <span onclick="addTag('#narration')">#narration</span>
+      <span onclick="addTag('#viralvideo')">#viralvideo</span>
+    </div>
+
+    <label style="margin-top:16px;">Hashtags</label>
+    <textarea id="hashtagsInput" rows="3" placeholder="#storytime #shortvideo"></textarea>
 
     <button onclick="publishVideo()">Publish video</button>
   </div>
@@ -189,18 +267,37 @@
 
 <script>
   function startGeneration() {
-    document.querySelector('#generating').style.display = 'block';
+    document.getElementById('generating').style.display = 'block';
+
+    const steps = ['s1','s2','s3','s4','s5','s6'];
+    let i = 0;
+
+    const interval = setInterval(() => {
+      if (i > 0) document.getElementById(steps[i - 1]).classList.remove('active');
+      if (i < steps.length) {
+        document.getElementById(steps[i]).classList.add('active');
+        i++;
+      }
+    }, 2000);
 
     setTimeout(() => {
-      document.querySelector('#generating').style.display = 'none';
-      document.querySelector('#generated').style.display = 'block';
-      document.querySelector('#publishSection').classList.remove('hidden');
-    }, 12000); // 10–15 seconds visual loading
+      clearInterval(interval);
+      document.getElementById('generating').style.display = 'none';
+      document.getElementById('generated').style.display = 'block';
+      document.getElementById('publishSection').classList.remove('hidden');
+    }, 13000);
+  }
+
+  function addTag(tag) {
+    const textarea = document.getElementById('hashtagsInput');
+    if (!textarea.value.includes(tag)) {
+      textarea.value += (textarea.value ? ' ' : '') + tag;
+    }
   }
 
   function publishVideo() {
-    document.querySelector('#publishSection').style.display = 'none';
-    document.querySelector('#published').style.display = 'block';
+    document.getElementById('publishSection').style.display = 'none';
+    document.getElementById('published').style.display = 'block';
   }
 </script>
 
