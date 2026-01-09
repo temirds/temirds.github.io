@@ -125,6 +125,15 @@
       font-weight: 600;
     }
 
+    .step.done {
+      color: #16a34a;
+      font-weight: 700;
+    }
+
+    .step.done::before {
+      content: "✓ ";
+    }
+
     .success {
       font-size: 28px;
       color: #16a34a;
@@ -149,6 +158,24 @@
     .hashtags span:hover {
       background: #e0e7ff;
     }
+
+    /* Publish progress bar */
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f46e5, #6366f1);
+      border-radius: 999px;
+      transition: width 0.8s ease-in-out;
+    }
   </style>
 </head>
 
@@ -164,13 +191,11 @@
 <main>
   <h1>Create a new video</h1>
 
-  <!-- STEP 1 -->
   <div class="card">
     <label>Discussion thread URL</label>
     <input type="text" placeholder="Paste a public discussion thread link" />
   </div>
 
-  <!-- STEP 2 -->
   <div class="card">
     <label>Background music</label>
     <select>
@@ -201,6 +226,7 @@
       <div class="step" id="s4">• Generating narration</div>
       <div class="step" id="s5">• Rendering subtitles</div>
       <div class="step" id="s6">• Video editing and montage</div>
+      <div class="step" id="s7">• Generation completed</div>
     </div>
   </div>
 
@@ -214,7 +240,9 @@
 
       <div style="
         position: relative;
-        padding-top: 177%;
+        height: 520px;
+        max-width: 320px;
+        margin: 0 auto;
         border-radius: 14px;
         overflow: hidden;
         background: #000;
@@ -222,14 +250,7 @@
       ">
         <iframe
           src="https://www.tiktok.com/embed/7593089944558587192"
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-          "
+          style="width:100%;height:100%;border:none;"
           allowfullscreen
         ></iframe>
       </div>
@@ -252,9 +273,18 @@
     </div>
 
     <label style="margin-top:16px;">Hashtags</label>
-    <textarea id="hashtagsInput" rows="3" placeholder="#storytime #shortvideo"></textarea>
+    <textarea id="hashtagsInput" rows="3"></textarea>
 
     <button onclick="publishVideo()">Publish video</button>
+
+    <div id="publishProgress" class="hidden">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p style="font-size:14px;color:#6b7280;margin-top:8px;">
+        Publishing video…
+      </p>
+    </div>
   </div>
 
   <!-- PUBLISHED -->
@@ -282,6 +312,9 @@
 
     setTimeout(() => {
       clearInterval(interval);
+      steps.forEach(id => document.getElementById(id).classList.remove('active'));
+      document.getElementById('s7').classList.add('done');
+
       document.getElementById('generating').style.display = 'none';
       document.getElementById('generated').style.display = 'block';
       document.getElementById('publishSection').classList.remove('hidden');
@@ -289,15 +322,31 @@
   }
 
   function addTag(tag) {
-    const textarea = document.getElementById('hashtagsInput');
-    if (!textarea.value.includes(tag)) {
-      textarea.value += (textarea.value ? ' ' : '') + tag;
+    const t = document.getElementById('hashtagsInput');
+    if (!t.value.includes(tag)) {
+      t.value += (t.value ? ' ' : '') + tag;
     }
   }
 
   function publishVideo() {
-    document.getElementById('publishSection').style.display = 'none';
-    document.getElementById('published').style.display = 'block';
+    const progress = document.getElementById('publishProgress');
+    const fill = document.getElementById('progressFill');
+
+    progress.classList.remove('hidden');
+    fill.style.width = '0%';
+
+    const steps = [15, 35, 55, 70, 90, 100];
+    let i = 0;
+
+    const interval = setInterval(() => {
+      fill.style.width = steps[i] + '%';
+      i++;
+      if (i >= steps.length) {
+        clearInterval(interval);
+        document.getElementById('publishSection').style.display = 'none';
+        document.getElementById('published').style.display = 'block';
+      }
+    }, 700);
   }
 </script>
 
