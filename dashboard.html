@@ -1,13 +1,208 @@
-<h2>TikTok Publishing Dashboard</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Thread2Clip</title>
 
-<p>Status: Connected to TikTok</p>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    }
 
-<button>Login with TikTok</button>
-<br><br>
+    body {
+      background: #f9fafb;
+      color: #1f2937;
+      min-height: 100vh;
+    }
 
-<input type="file">
-<br><br>
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
 
-<button>Upload Video</button>
+    header .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-<p>Upload status: Ready</p>
+    header a {
+      text-decoration: none;
+      color: #111827;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      margin-bottom: 28px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    button {
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: none;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #e5e7eb;
+      border-top: 5px solid #4f46e5;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .success {
+      font-size: 28px;
+      color: #16a34a;
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/index.html">Thread2Clip</a>
+    <span>Dashboard</span>
+  </div>
+</header>
+
+<main>
+  <h1>Create a new video</h1>
+
+  <!-- STEP 1 -->
+  <div class="card">
+    <label>Discussion thread URL</label>
+    <input type="text" placeholder="Paste a public discussion thread link" />
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card">
+    <label>Background music</label>
+    <select>
+      <option>Calm narration</option>
+      <option>Trending upbeat</option>
+      <option>Minimal ambient</option>
+    </select>
+
+    <label>Subtitle style</label>
+    <select>
+      <option>Bold center captions</option>
+      <option>Minimal bottom subtitles</option>
+      <option>Animated word-by-word</option>
+    </select>
+
+    <button onclick="startGeneration()">Create video</button>
+  </div>
+
+  <!-- GENERATING -->
+  <div id="generating" class="card status">
+    <div class="spinner"></div>
+    <p>Generating video…</p>
+  </div>
+
+  <!-- GENERATED -->
+  <div id="generated" class="card status">
+    <div class="success">✓</div>
+    <p>Video successfully created</p>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="publishSection" class="card hidden">
+    <label>Hashtags</label>
+    <textarea rows="3" placeholder="#story #shortvideo #narration"></textarea>
+
+    <button onclick="publishVideo()">Publish video</button>
+  </div>
+
+  <!-- PUBLISHED -->
+  <div id="published" class="card status">
+    <div class="success">✓</div>
+    <p>Your video has been published successfully</p>
+  </div>
+
+</main>
+
+<script>
+  function startGeneration() {
+    document.querySelector('#generating').style.display = 'block';
+
+    setTimeout(() => {
+      document.querySelector('#generating').style.display = 'none';
+      document.querySelector('#generated').style.display = 'block';
+      document.querySelector('#publishSection').classList.remove('hidden');
+    }, 12000); // 10–15 seconds visual loading
+  }
+
+  function publishVideo() {
+    document.querySelector('#publishSection').style.display = 'none';
+    document.querySelector('#published').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
