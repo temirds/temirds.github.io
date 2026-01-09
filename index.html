@@ -1,2 +1,270 @@
-<h1>TikTok API App</h1>
-<p>This website is used for TikTok developer verification.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thread2Clip — Turn Threads into Videos</title>
+  <meta name="description" content="Thread2Clip automatically converts discussion threads into short-form videos with narration." />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #f9fafb, #ffffff);
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    header nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero h2 {
+      font-size: 44px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #111827;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #374151;
+      margin-bottom: 32px;
+    }
+
+    .hero button {
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background: #4f46e5;
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .hero .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      margin-bottom: 14px;
+      font-size: 15px;
+      color: #374151;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    section h3 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #111827;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .feature {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .feature h4 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 40px 24px;
+      border-top: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+
+    footer .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #4b5563;
+      font-size: 14px;
+      margin-right: 16px;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Thread2Clip</h1>
+  <nav>
+    <a href="#how-it-works">How it works</a>
+    <a href="#features">Features</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div>
+      <h2>Turn discussion threads into short videos</h2>
+      <p>
+        Thread2Clip automatically converts text-based discussion threads
+        into engaging short-form videos with narration and visuals.
+      </p>
+      <button>Get Started</button>
+    </div>
+
+    <div class="card">
+      <ul>
+        <li>✔ Upload or paste a discussion thread</li>
+        <li>✔ Automatically generate narration</li>
+        <li>✔ Create a ready-to-share short video</li>
+        <li>✔ No video editing required</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <h3>How it works</h3>
+    <p>
+      Thread2Clip simplifies video creation by transforming text conversations
+      into short videos through automated processing and narration.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <h4>1. Input Text</h4>
+        <p>Provide a public discussion thread or text content you want to convert.</p>
+      </div>
+
+      <div class="feature">
+        <h4>2. Automated Processing</h4>
+        <p>The system structures the content and generates narration automatically.</p>
+      </div>
+
+      <div class="feature">
+        <h4>3. Video Output</h4>
+        <p>Receive a short-form video ready for publishing or further editing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <h3>Key features</h3>
+
+    <div class="features">
+      <div class="feature">
+        <h4>Automated narration</h4>
+        <p>Convert text into natural-sounding voice narration.</p>
+      </div>
+
+      <div class="feature">
+        <h4>Short-form format</h4>
+        <p>Optimized for modern short video platforms.</p>
+      </div>
+
+      <div class="feature">
+        <h4>Simple workflow</h4>
+        <p>No technical or video editing skills required.</p>
+      </div>
+
+      <div class="feature">
+        <h4>Content control</h4>
+        <p>Users remain responsible for the content they choose to convert.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Thread2Clip</p>
+    <div>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="mailto:support@thread2clip.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
